@@ -39,7 +39,7 @@ public class TechJobs {
                 String columnChoice = getUserSelection("List", columnChoices);
 
                 if (columnChoice.equals("all")) {
-                    printJobs(JobData.findAll());
+                    printJobs(JobData.findAll()); // someJobs = JobData.findAll()
                 } else {
 
                     ArrayList<String> results = JobData.findAll(columnChoice);
@@ -119,7 +119,24 @@ public class TechJobs {
 
     // Print a list of jobs
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
+        //for (someJobs.size()){} // use for/and loop
+        //Above is for the search
 
-        System.out.println("printJobs is not implemented yet");
+        for (HashMap<String, String> jobs: someJobs){
+
+        System.out.println("\n*****" );
+        for(Map.Entry<String, String> pairs : jobs.entrySet()){
+            System.out.println(pairs.getKey() + ": " + pairs.getValue());
+        }
+            System.out.println("\n*****" );
+        }
+            // look at every name and column
+
+            // Notes: go through my list of jobs then go through list of properties for each job
+            // example: i want to look at job #1 and for job #1 I want to look at name
+        if(someJobs.isEmpty()) {
+            System.out.print("No Results");
+            // Test are failing but is "identical"
+        }
     }
 }

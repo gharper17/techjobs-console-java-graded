@@ -1,3 +1,4 @@
+import jdk.nashorn.internal.runtime.regexp.joni.constants.internal.StringType;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -77,9 +78,9 @@ public class JobData {
 
         for (HashMap<String, String> row : allJobs) {
 
-            String aValue = row.get(column);
+            String aValue = row.get(column).toLowerCase();
 
-            if (aValue.contains(value)) {
+            if (aValue.contains(value.toLowerCase())) {
                 jobs.add(row);
             }
         }
@@ -98,8 +99,23 @@ public class JobData {
         // load data, if not already loaded
         loadData();
 
+        ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+        String caseSensative = value.toLowerCase();
+
+        //looping through array list allJobs and finding hashmaps. then looping through key value pairs of hashmap
+        // comparing user input to values in the hashmap, if contains, adds job/row to jobs array list
+        //returns jobs array list with all matches
+        for (HashMap<String, String> row : allJobs) {
+            for (String pair: row.values()){
+                if ((pair.toLowerCase()).contains(caseSensative)){
+                    jobs.add(row);
+                    break;
+                }
+            }
+        }
+
+        return jobs;
         // TODO - implement this method
-        return null;
     }
 
     /**
